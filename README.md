@@ -27,6 +27,11 @@ Run integration tets with coverage
  npm run test:integration
 ```
 
+Run Code Quality assesment - esLint
+```bash
+  npm run lint
+```
+
 Jest will also generate coverage folder under root directory wiht all the stats.
 
 The application wil run on port 8080
