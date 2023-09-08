@@ -21,7 +21,7 @@ export default class TicketService {
       throw new InvalidPurchaseException('AccountId is not valid.')
     }
 
-    ticketTypeRequests.filter(request => {
+    ticketTypeRequests.forEach(request => {
       if (request.getTicketType() === 'ADULT') {
         adultTickets += request.getNoOfTickets()
       }
@@ -50,7 +50,6 @@ export default class TicketService {
       throw new InvalidPurchaseException(`You are allowed to by up to ${MAX_NUMBER_OF_TICKETS} tickets only.`)
     }
 
-  
     const amountToPay = adultTickets * ADULT_TIKCET_PRICE + childTickets * CHILD_TIKCET_PRICE
     const seatsAllocated = adultTickets + childTickets
 

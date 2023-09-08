@@ -1,8 +1,9 @@
 import TicketService from '../../src/pairtest/TicketService'
 import TicketTypeRequest from '../../src/pairtest/lib/TicketTypeRequest'
+import TicketPaymentService from '../../src/thirdparty/paymentgateway/TicketPaymentService'
+import SeatReservationService from '../../src/thirdparty/seatbooking/SeatReservationService'
 
 const ticketservice = new TicketService()
-
 const ADDULT_TICKETS_ZERO = new TicketTypeRequest('ADULT', 0)
 const ADDULT_TICKETS_TWO = new TicketTypeRequest('ADULT', 2)
 const ADDULT_TICKETS_TEN = new TicketTypeRequest('ADULT', 10)
@@ -13,6 +14,25 @@ let accountId = 0
 beforeEach(() => {
   jest.clearAllMocks()
 })
+
+const mockMakePayment = jest.fn()
+jest.mock('../../src/thirdparty/paymentgateway/TicketPaymentService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      makePayment: mockMakePayment
+    }
+  })
+})
+
+const mockReserveSeat = jest.fn()
+jest.mock('../../src/thirdparty/seatbooking/SeatReservationService', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      reserveSeat: mockReserveSeat
+    }
+  })
+})
+
 describe('TicketService', () => {
   it('Throws exception if id is not valid', () => {
     expect(() => {
@@ -79,5 +99,18 @@ describe('TicketService', () => {
     const response = ticketservice.purchaseTickets(accountId, ...purchaseRequests)
     expect(response).toHaveProperty('seatsAllocated')
     expect(response.seatsAllocated).toBe(result)
+  })
+
+  const ticketPaymentService = new TicketPaymentService()
+  const seatReservationService = new SeatReservationService()
+
+  it('Test function make payment has been called once', () => {
+    ticketservice.purchaseTickets(accountId, ADDULT_TICKETS_TWO)
+    expect(ticketPaymentService.makePayment).toHaveBeenCalledTimes(1)
+  })
+
+  it('Test function reserve seats has been called once', () => {
+    ticketservice.purchaseTickets(accountId, ADDULT_TICKETS_TWO)
+    expect(seatReservationService.reserveSeat).toHaveBeenCalledTimes(1)
   })
 })

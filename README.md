@@ -17,6 +17,11 @@ npm ci
 ```
 2.  Testing
 
+Run all tets with coverage
+```bash
+npm run test:unit
+```
+
 Run unit tets with coverage
 ```bash
 npm run test:unit

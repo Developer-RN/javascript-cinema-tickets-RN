@@ -3,7 +3,7 @@ import InvalidPurchaseException from './InvalidPurchaseException.js'
 
 const addOrdersToArray = (ticketRequest, listOfTicketOrdered) => {
   let arrayIndex = 0
-  if (ticketRequest === null) {
+  if (ticketRequest === null | ticketRequest === undefined) {
     throw new InvalidPurchaseException('The request is invalid.')
   }
   if (ticketRequest.length === 0) {
