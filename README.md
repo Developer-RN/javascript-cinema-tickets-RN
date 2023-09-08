@@ -90,3 +90,15 @@ Curl command with valid request
     ]
 }'
 ```
+3.  Runing as a docker
+
+Build the container
+```bash
+docker build -t ticketservice
+```
+
+Run the container
+```bash
+docker run -p 8080:8080 ticketservice
+```
+Endpoint is POST "http://localhost:8080/purchasetickets"

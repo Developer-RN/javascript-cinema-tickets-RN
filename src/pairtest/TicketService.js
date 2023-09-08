@@ -50,10 +50,9 @@ export default class TicketService {
       throw new InvalidPurchaseException(`You are allowed to by up to ${MAX_NUMBER_OF_TICKETS} tickets only.`)
     }
 
-    let amountToPay = 0
-    let seatsAllocated = 0
-    amountToPay = adultTickets * ADULT_TIKCET_PRICE + childTickets * CHILD_TIKCET_PRICE
-    seatsAllocated = adultTickets + childTickets
+  
+    const amountToPay = adultTickets * ADULT_TIKCET_PRICE + childTickets * CHILD_TIKCET_PRICE
+    const seatsAllocated = adultTickets + childTickets
 
     const ticketPaymentService = new TicketPaymentService()
     const seatsAllocationService = new SeatReservationService()
