@@ -1,6 +1,6 @@
 import express from 'express'
-import Ticketservice from '../pairtest/TicketService.js'
-import addOrdersToArray from '../pairtest/lib/utils.js'
+import Ticketservice from '../../pairtest/TicketService.js'
+import addOrdersToArray from '../../pairtest/lib/utils.js'
 const router = express.Router()
 
 router.post('/purchasetickets', function (req, res, next) {

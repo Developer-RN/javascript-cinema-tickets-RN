@@ -1,10 +1,10 @@
 import express from 'express'
-import routes from './routes/routes.js'
+import routesV1 from './routes/V1/routes.js'
 import bodyParser from 'body-parser'
 import ErrorHandler from './pairtest/lib/ErrorHandler.js'
 const app = express()
 app.use(bodyParser.json())
-app.use('/', routes)
+app.use('/', routesV1)
 
 app.use(ErrorHandler)
 
